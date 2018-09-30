@@ -61,7 +61,6 @@
                                     <b><%= post.author.username %></b>
                                     made a post.
                                 </div>
-                                <h6 class="text-muted time">1 minute ago</h6>   <!-- TO BE CHANGED -->
                             </div>
                         </div>
                         <div class="post-description">
@@ -77,8 +76,10 @@
                         <a href="/wall/post/<%= post.id %>">Comment or Like</a>
                     </div>
                 <% } else { %>
+                <!--loop through all of his friends-->
                     <% friendships.forEach(function(friendships){ %>
-                        <% if((friendships.equals(post.author.id)) || (post.author.id.equals(currentUser.id))){ %>
+                    <!--print the friend's post-->
+                        <% if(friendships.equals(post.author.id)){ %>
                             <div class="well">
                                 <div class="post-heading">
                                     <% if (!(post.author.id.userAvatar)){ %>
@@ -95,7 +96,6 @@
                                             <b><%= post.author.username %></b>
                                             made a post.
                                         </div>
-                                        <h6 class="text-muted time">1 minute ago</h6>   <!-- TO BE CHANGED -->
                                     </div>
                                 </div>
                                 <div class="post-description">
@@ -110,6 +110,7 @@
                                 
                                 <a href="/wall/post/<%= post.id %>">Comment or Like</a>
                             </div>
+                        <!--if the post is not of his friends but a friend of him liked it-->
                         <% } else if(post.likers !== 0){%>
                             <% post.likers.forEach(function(liker){ %>
                                 <% if(friendships.equals(liker)) {%>
@@ -129,7 +130,6 @@
                                                     <b><%= post.author.username %></b>
                                                     made a post.
                                                 </div>
-                                                <h6 class="text-muted time">1 minute ago</h6>   <!-- TO BE CHANGED -->
                                             </div>
                                         </div>
                                         <div class="post-description">

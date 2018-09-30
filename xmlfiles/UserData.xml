@@ -1,15 +1,5 @@
 <UserData>
   <User>
-    <firstname>12</firstname>
-    <lastname>12</lastname>
-    <Work/>
-    <Job/>
-    <Skills/>
-    <Company/>
-    <Education/>
-    <Phone>12</Phone>
-  </User>
-  <User>
     <firstname>1</firstname>
     <lastname>1</lastname>
     <Work/>
@@ -20,24 +10,14 @@
     <Phone>1</Phone>
   </User>
   <User>
-    <firstname>3</firstname>
-    <lastname>3</lastname>
+    <firstname>5</firstname>
+    <lastname>5</lastname>
     <Work/>
     <Job/>
     <Skills/>
     <Company/>
     <Education/>
-    <Phone>3</Phone>
-  </User>
-  <User>
-    <firstname>poutsa</firstname>
-    <lastname>skata</lastname>
-    <Work/>
-    <Job/>
-    <Skills/>
-    <Company/>
-    <Education/>
-    <Phone>skata</Phone>
+    <Phone>5</Phone>
   </User>
   <User>
     <firstname>Panos</firstname>
@@ -48,5 +28,15 @@
     <Company/>
     <Education/>
     <Phone>6982431412</Phone>
+  </User>
+  <User>
+    <firstname>Panos</firstname>
+    <lastname>Panos</lastname>
+    <Work/>
+    <Job/>
+    <Skills/>
+    <Company/>
+    <Education/>
+    <Phone>52124</Phone>
   </User>
 </UserData>
