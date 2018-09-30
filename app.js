@@ -16,7 +16,8 @@ var userRoute = require("./routes/users");
     
     
 var url = "mongodb://localhost/LinkedOut";
-mongoose.connect(url,{ useNewUrlParser: true });
+// mongoose.connect(url,{ useNewUrlParser: true });
+mongoose.connect("mongodb://Stefanos:STF7833ftbl@ds215563.mlab.com:15563/linkedout",{ useNewUrlParser: true });
 
 mongoose.set('useCreateIndex', true);
     
@@ -55,22 +56,6 @@ app.use(function(req, res, next){
 app.use("/",indexRoute);
 app.use("/users",userRoute);
 app.use("/wall",wallRoute);
-
-// var options = {
-//     key: fs.readFileSync('csr.pem'),
-//     cert: fs.readFileSync('server.crt')
-// };
-
-// https.createServer(options, function(req, res) {
-
-//     console.log("This works!");
-
-//     res.writeHead(200);
-//     res.end("Hello world from Cloud9! Url:"+req.url);
-
-// }).listen(process.env.PORT,process.env.IP,function(){
-//     console.log("Server Started");
-// });
 
 app.listen(process.env.PORT,process.env.IP,function(){
     console.log("Server Started");
