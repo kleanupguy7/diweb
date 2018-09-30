@@ -3,31 +3,41 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>LinkedOut</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="/stylesheets/main.css">
     </head>
     <body>
-        <nav class="navbar navbar-default">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                      <span class="sr-only">Toggle navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                    </button>
         
-                    <a class="navbar-brand" href="/">LinkedOut</a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                  <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/login">Login</a></li>
-                    <li><a href="/register">Register</a></li>
-                  </ul>
-                </div>
-            </div>
+        
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="/">LinkedOut</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+            </ul>
+            <span class="navbar-text">
+              <% if(!currentUser){ %>
+                          <a class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %> nav-link" href="/login">Login</a>
+            </span>
+            <span class="navbar-text">
+                          <a class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %> nav-link" href="/register">Register</a>
+                      <% } else { %>
+            </span>
+            <span class="navbar-text">
+                          <a class="nav-link" href="/wall">MyWall</a>
+            
+            </span>
+            <span class="navbar-text">
+                          <a class="nav-link" href="/logout">Logout</a>
+            </span>
+             <% } %>
+          </div>
         </nav>
-        
     <header class="jumbotron">
         <div class="container">
             <h1> Welcome to LinkedOut!</h1>

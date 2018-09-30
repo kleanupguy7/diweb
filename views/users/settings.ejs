@@ -1,0 +1,37 @@
+<% include ../partials/header %>
+
+
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Edit Profile</h4>
+                </div>
+                <div class="content">
+                    
+                    <form action="/users/<%= currentUser._id %>/settings/?_method=PUT" method="POST">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Change email</label>
+                                    <input class="form-control" type="text" name="username" placeholder="Please enter a new email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Change password</label>
+                                    <input class="form-control" type="password" name="password" placeholder="Please enter a new password">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-info btn-fill btn-wd">Update Profile</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        
+<% include ../partials/footer %>

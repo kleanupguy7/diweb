@@ -1,0 +1,57 @@
+<% include ../partials/header %>
+    <body>
+         <div class="side-menu">
+          <a class="nav-link" href="/network"><i class="fas fa-users"></i>My Network</a>
+          <a class="nav-link" href="/account"><i class="fas fa-user"></i>Me</a>
+        </div>
+        
+        
+ <!--THIS IS THE POST BOX -->
+<div class="container pb-cmnt-container "> 
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card card-info">
+                <div class="card-block">
+                    <form class="form-inline" action="/wall" method="POST">
+                        <input placeholder="Share a photo,video or a music file" class="pb-cmnt-textarea" name ="usertext"></textarea>
+                        <div class="btn-group">
+                            <label class="btn" type="button">
+                               <i class="fas fa-image"></i><input type="file" hidden>
+                            </label>
+                            <label class="btn" type="button">
+                               <i class="fas fa-video"></i><input type="file" hidden>
+                            </label>
+                            <label class="btn" type="button">
+                               <i class="fas fa-music"></i><input type="file" hidden>
+                            </label>
+                        </div>
+                        <div class = "form-group">
+                            <button class="btn btn-primary float-right" type="submit">Share</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+       <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+            <% posts.forEach(function(post){ %>
+                <div class="col-md-3 col-sm-6">
+                    <div class="caption">
+                      <h4><%= post.text %></h4>
+                       <div class="caption">
+                           <h4><%= post.author %></h4>
+                       </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+        
+        
+        
+        
+<% include ../partials/footer %>

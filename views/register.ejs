@@ -2,40 +2,54 @@
 <html>
     <head>
         <title>LinkedOut</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/stylesheets/main.css">
+        <script type="text/javascript">
+            function confirmPass(){
+                var pass = document.getElementById("password").value;
+                var confirmPass = document.getElementById("confirmPassword").value;
+                if(pass!=confirmPass){
+                    alert("Passwords are not the same.Please try again");
+                    return false;
+                }
+            }
+        </script>
     </head>
-<div class="row">
-    <h1 style="text-align: center">Sign Up</h1>
-        <form action="/register" method="post">
-            <div class="form-group">
-                <input class="form-control" type="text" name="firstname" placeholder="Firstname">
+    <body>
+        <div class="row">
+            <h1 style="text-align: center">Sign Up</h1>
+            <div style="width: 30%; margin: 25px auto;">
+                <form action="/register" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="firstname" placeholder="Firstname">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="lastname" placeholder="Lastname">
+                    </div>
+                    
+                        <div class="form-group">
+                            <input class="form-control" type="password" name="password" id="password" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" name="Confirmpassword" id="confirmPassword" placeholder="Confirm password">
+                        </div>
+                    
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="username" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="tel" name="tel" placeholder="123-4567890">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="file" name="userAvatar" class="userAvatar" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-lg btn-primary btn-block" onclick="return confirmPass()">Register!</button>
+                    </div>
+                </form>
+                <a href="/">Go Back</a>
             </div>
-            <div class="form-group">
-                <input class="form-control" type="text" name="lastname" placeholder="Lastname">
-            </div>
-            <label for="password">Password</label>
-                <div class="form-group">
-                    <input class="form-control" type="password" name="password" placeholder="Password">
-                </div>
-                <label for="confirmPassword">Confirm Password</label>
-                <div class="form-group">
-                    <input class="form-control" type="password" name="Confirmpassword" placeholder="Confirm password">
-                </div>
-            
-            <div class="form-group">
-                <input class="form-control" type="text" name="username" placeholder="Email">
-            </div>
-            <div class="form-group">
-                <input class="form-control" type="tel" name="tel" placeholder="123-4567890">
-            </div>
-            <div class="form-group">
-                <input class="form-control" type="file" name="file" placeholder="">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-lg btn-primary btn-block">Register!</button>
-            </div>
-        </form>
-        <a href="/welcomePage">Go Back</a>
-    </div>
-</div>
+        </div>
 
-</html>
+        
+<% include ./partials/footer %>

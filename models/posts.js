@@ -3,20 +3,18 @@ var passportLocalMongoose = require("passport-local-mongoose");
 
 var PostSchema = new mongoose.Schema({
     text: String,
-    id: { type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
-    },
-    author:{
-        id:{
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"User"
-        },
-        username:String
-    },
-    username:String
+    image: String,
+    author: String
+    // author:{
+    //     id:{
+    //         type:mongoose.Schema.Types.ObjectId,
+    //         ref:"User"
+    //     },
+    //     username:String
+    // }
 });
 
 
 PostSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model("Post", PostSchema);
+module.exports = mongoose.model("Posts", PostSchema);

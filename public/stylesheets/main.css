@@ -1,0 +1,33 @@
+a.selected {
+  color: red;
+  background: #efefef;
+}
+
+.side-menu {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #f1f1f1;
+  width: 10%;
+  text-align: center;
+}
+
+.side-menu a {
+  text-decoration: none;
+  color: #333;
+  padding: 2px 30px;
+  display: block;
+}
+.side-menu a:hover {
+  background-color: #CCC;
+}
+.pb-cmnt-container {
+ font-family: Lato;
+}
+.pb-cmnt-textarea {
+ resize: none;
+ padding: 20px;
+ height: 130px;
+ width: 100%;
+ border: 1px solid #F2F2F2;
+}

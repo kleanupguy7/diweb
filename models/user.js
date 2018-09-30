@@ -1,5 +1,7 @@
 var mongoose = require("mongoose");
 var passportLocalMongoose = require("passport-local-mongoose");
+var friends = require("mongoose-friends");
+var posts = require("./posts");
 
 var UserSchema = new mongoose.Schema({
     firstname:String,
@@ -7,10 +9,14 @@ var UserSchema = new mongoose.Schema({
     password:String,
     username:String,
     tel:String,
-    photo: { data: Buffer, contentType: String }
+    userAvatar:String,
+    work:String,
+    education:String,
+    skills:String,
+    isAdmin:{type: Boolean ,default:false}
+    //interests:[]
 });
 
-
 UserSchema.plugin(passportLocalMongoose);
-
-module.exports = mongoose.model("User", UserSchema);
+UserSchema.plugin(friends());
+module.exports = mongoose.model('User',UserSchema);
