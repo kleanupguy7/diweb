@@ -17,9 +17,12 @@ var indexRoute = require("./routes/index");
 var wallRoute = require("./routes/wall");
 var userRoute = require("./routes/users");
     
-// mongoose.connect("mongodb://localhost/LinkedOut",{ useNewUrlParser: true });
-mongoose.connect("mongodb://Stefanos:STF7833ftbl@ds215563.mlab.com:15563/linkedout",{ useNewUrlParser: true });
+    
+
+mongoose.connect(process.env.DATABASEURL,{ useNewUrlParser: true });
+// mongoose.connect("mongodb://Stefanos:STF7833ftbl@ds215563.mlab.com:15563/linkedout",{ useNewUrlParser: true });
 // mongodb://Stefanos:STF7833ftbl@ds215563.mlab.com:15563/linkedout
+
 mongoose.set('useCreateIndex', true);
     
 mongoose.Promise = require('bluebird');
