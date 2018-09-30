@@ -7,10 +7,7 @@ var express = require("express"),
     flash = require("connect-flash"),
     seedDB      = require("./seed"),
     methodOverride = require("method-override"),
-    bodyParser = require("body-parser"),
-    https = require("https"),
-    fs = require("fs"),
-    url = require("url");
+    bodyParser = require("body-parser");
 
     
 var indexRoute = require("./routes/index");
@@ -18,10 +15,8 @@ var wallRoute = require("./routes/wall");
 var userRoute = require("./routes/users");
     
     
-
-mongoose.connect(process.env.DATABASEURL,{ useNewUrlParser: true });
-// mongoose.connect("mongodb://Stefanos:STF7833ftbl@ds215563.mlab.com:15563/linkedout",{ useNewUrlParser: true });
-// mongodb://Stefanos:STF7833ftbl@ds215563.mlab.com:15563/linkedout
+var url = "mongodb://localhost/LinkedOut";
+mongoose.connect(url,{ useNewUrlParser: true });
 
 mongoose.set('useCreateIndex', true);
     

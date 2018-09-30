@@ -1,0 +1,127 @@
+<% include ../partials/header %>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="well">
+                    <div class="post-heading">
+                        <% if (!(post.author.id.userAvatar)){ %>
+                            <div class="pull-left image">
+                                <img src="/uploads/2018-09-16T13:22:41.307ZuserAvatar" class="img-circle avatar">
+                            </div>
+                        <% } else { %>
+                            <div class="pull-left image">
+                                <img src="/uploads/<%= post.author.id.userAvatar %>" class="img-circle avatar">
+                            </div>
+                        <% } %>
+                        <div class="pull-left meta">
+                            <div class="title h5">
+                                <b><%= post.author.username %></b>
+                                made a post.
+                            </div>
+                            <h6 class="text-muted time">1 minute ago</h6>   <!-- TO BE CHANGED -->
+                        </div>
+                    </div>
+                    <div class="post-description">
+                        
+                        <% if((post.image)) { %>
+                            <div class="post-description">
+                                <img src="/uploads/<%= post.image %>" class="image-responsive">
+                            </div>
+                        <% } %>
+                        
+                        <p><%= post.text %></p>
+                        <form action="/wall/post/<%= post.id %>/like" method="POST">
+                            <div class="form-group">
+                                <button class="btn text-center"><i class="fa fa-thumbs-up icon"></i>Like <%= post.likes %></button>
+                            </div>
+                        </form>
+                        <form action="/wall/post/<%= post.id %>/dislike" method="POST">
+                            <button class="btn text-center"><i class="fa fa-thumbs-down icon"></i>Unlike</button>
+                        </form>
+                    </div>
+               
+                  <!--Setting up the add new comment button that is used for collapsing-->
+                    <div class="text-right">
+                        <a class="btn btn-success pull-right" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">
+                        <i class="fas fa-plus"></i> Add new comment</a>
+                    </div>
+        
+                        <!--Comment section title-->
+                    <h4><strong>Comments <i class="fas fa-comment"></i></strong></h4>
+                    
+                    <!--Collapse Add a comment form START-->
+                    <div class="collapse" id="collapseComment">
+                        <div class="well" style="border-left: 5px solid #00C851;">
+                            <% if(!currentUser) { %>
+                                <!--If the user is not logged in, direct him to the login page-->
+                                <h5>You need to login before you can comment. <a href="/login">Click here</a> to go to the login page.</h5>
+                            <% } %>
+                            <% if(currentUser) { %>
+                                <!--If the user is logged in, show the new comment form-->
+                                <h4>Write your comment <i class="fas fa-pencil-alt"></i></h4>
+                                <form id="add-comment-form" action="/wall/post/<%= post.id %>" method="POST">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" disabled value="<%= currentUser.firstname %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="comment[text]" placeholder="Write your comment..." form="add-comment-form" rows="5" cols="70"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-success btn-sm">Comment <i class="fas fa-comment"></i></button>
+                                    </div>
+                                </form>
+                            <% } %>
+                        </div>
+                    </div>
+                <!--Collapse Add a comment form END-->
+        
+        
+        
+                    <hr>
+        
+                    <!--Check if there are comments, if there are none say no comments.-->
+                    <% if (post.comments.length === 0) { %>
+                        <em style="color: grey;">No comments yet.</em>
+                    <% } %>
+                    
+                    <!--Display comments by looping through them-->
+                    <% post.comments.forEach(function(comment) { %>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="post-heading">
+                                    <% if (!(comment.author.id.userAvatar)){ %>
+                                        <div class="pull-left image">
+                                            <img src="/uploads/2018-09-16T13:22:41.307ZuserAvatar" class="img-circle avatar">
+                                        </div>
+                                    <% } else { %>
+                                        <div class="pull-left image">
+                                            <img src="/uploads/<%= post.author.id.userAvatar %>" class="img-circle avatar">
+                                        </div>
+                                    <% } %>
+                                    <div class="pull-left meta">
+                                        <div class="title h5">
+                                            <b><%= comment.author.username %></b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="post-description">
+                                    <p><%= comment.text %></p>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+        <!--COMMENT SECTION END-->
+                
+            </div>
+        </div>
+    </div>
+           
+             
+           
+
+<% include ../partials/footer %>
+
+

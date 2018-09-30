@@ -1,39 +1,101 @@
 <% include ../partials/header %>
 
+
+
+
     <div class="container">
         <div class="col-lg-12">
-            <!--<img class="image-responsive" src="<%= user.photo %>">-->
             <div class="content">
                 <div class="col-lg-4">
-                    <% console.log(friendships.length); %>
-                    <% user.forEach(function(users,index){ %>
-                    <% console.log(index); %>
-                        <% if (!(currentUser.id == users.id)){ %>
-                            <div class="thumbnail">
-                                <h4>Current User</h4>
-                                <br>
-                                <!--TO BE CHANGED.NEED TO ADD FIRST AND LAST NAME ON EACH USER!-->
-                                <a href="/users/<%=users._id%>/me"><%= users.username %></a>
-                                <div class="form-inline">
-                                    <form action="/users/<%= currentUser._id %>/friends/<%= users._id %>/" method="POST">
-                                    <!--<i class="fas fa-user-plus"></i><input type="submit" class="nav-link btn btn-default" value="Add friend" onclick= "this.disabled=true;">-->
-                                    <button type="submit" class="btn btn-info btn-fill btn-wd">
-                                    <% if(index < friendships.length) { %>
-                                        <% console.log(friendships[index].status); %>
-                                        <% if(friendships[index].status === "pending"){ %>
-                                            Request Pending 
-                                        <% } else if(friendships[index].status === "requested"){ %>
-                                            Accept Friend
-                                        <% } else {%>
-                                            Already friends :D
+                    <% user.forEach(function(users){ %>
+                        <% if (!(currentUser.id == users.id) && (!(users.isAdmin))){ %>
+                            <% if(friendships.length != 0) { %>
+                                <% for(var j=0; j<friendships.length; j++){%>
+                                    <% if(friendships[j].friend.username === users.username) { %>
+                                        <% if(friendships[j].status !== "accepted"){ %>
+                                                <div class="thumbnail">
+                                                    <% if (!(users.userAvatar)){ %>
+                                                        <img src="/uploads/2018-09-16T13:22:41.307ZuserAvatar" class="image-responsive">
+                                                    <% } else { %>
+                                                        <img src="/uploads/<%= users.userAvatar %>">
+                                                    <% } %>
+                                                    
+                                                    <h4><a href="/users/<%= users._id %>/profile"><%= users.firstname %> <%= users.lastname %></a></h4>
+                                                    <div class="form-inline">
+                                                        <form action="/users/friends/<%= users._id %>/" method="POST">
+                                                        <button type="submit" class="btn btn-info btn-fill btn-wd">
+                                                       
+                                                                <% for(var i=0; i<friendships.length; i++){%>
+                                                                    <% if(friendships[i].friend.username === users.username) { %>
+                                                                        <% if(friendships[i].status === "requested"){ %>
+                                                                            Request Pending
+                                                                            <% i = friendships.length %>
+                                                                        <% } else { %>
+                                                                            Add Friend
+                                                                            <% i = friendships.length %>
+                                                                        <% } %>
+                                                                    <% } else if(i == friendships.length-1){%>
+                                                                        Add Friend
+                                                                    <% } %>
+                                                                <% }; %>
+                                                                
+                                                        </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            <% return %>
+                                        <% } else if(friendships[j].status === "accepted"){ %>
+                                            <% return %>
                                         <% } %>
-                                    <% } else {%>
-                                        Add Friend
+                                    <% } else if(j == friendships.length-1){%>
+                                        <div class="thumbnail">
+                                            <% if (!(users.userAvatar)){ %>
+                                                <img src="/uploads/2018-09-16T13:22:41.307ZuserAvatar" class="image-responsive">
+                                            <% } else { %>
+                                            <img src="/uploads/<%= users.userAvatar %>">
+                                            
+                                            <% } %>
+                                            <h4><a href="/users/<%= users._id %>/profile"><%= users.firstname %> <%= users.lastname %></a></h4>
+                                            <div class="form-inline">
+                                                <form action="/users/friends/<%= users._id %>/" method="POST">
+                                                    <button type="submit" class="btn btn-info btn-fill btn-wd">
+                                               
+                                                        <% for(var i=0; i<friendships.length; i++){%>
+                                                            <% if(friendships[i].friend.username === users.username) { %>
+                                                                <% if(friendships[i].status === "requested"){ %>
+                                                                    Request Pending
+                                                                    <% i = friendships.length %>
+                                                                <% } else { %>
+                                                                    Add Friend
+                                                                    <% i = friendships.length %>
+                                                                <% } %>
+                                                            <% } else if(i == friendships.length-1){%>
+                                                                Add Friend
+                                                            <% } %>
+                                                        <% }; %>
+                                                </button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     <% } %>
-                                    </button>
-                                    </form>
+                                <% }; %>
+                            <% } else { %>
+                                <div class="thumbnail">
+                                    <% if (!(users.userAvatar)){ %>
+                                        <img src="/uploads/2018-09-16T13:22:41.307ZuserAvatar" class="image-responsive">
+                                    <% } else { %>
+                                    <img src="/uploads/<%= users.userAvatar %>">
+                                    
+                                    <% } %>
+                                    
+                                    <h4><a href="/users/<%= users._id %>/profile"><%= users.firstname %> <%= users.lastname %></a></h4>
+                                    <div class="form-inline">
+                                        <form action="/users/friends/<%= users._id %>/" method="POST">
+                                        <button type="submit" class="btn btn-info btn-fill btn-wd"> Add Friend </button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
+                            <% } %>
                         <% } %>
                     <% }); %>
                 </div>
@@ -41,23 +103,4 @@
         </div>
     </div>
         
-     </body> 
-        
-       <script>
-            var Inputs = document.querySelectorAll("button");
-           
-            Inputs.forEach(function(input, index) {
-                input.addEventListener("click", function() {
-                input.value = "Request Pending";
-                });
-            });
-           
-       </script> 
-        
-        
-        
-        <script>
-           
-        </script>
-    
-    </html>
+<% include ../partials/footer %>

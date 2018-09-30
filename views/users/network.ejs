@@ -1,0 +1,77 @@
+<% include ../partials/header %>
+
+<div class="content">
+        <div class="container-fluid">
+            
+            <p>
+                <form action="/users/network/search" method="GET" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" name="search" placeholder="Users search..." class="form-control">
+                        <input type="submit" value="Search" class="btn btn-default">
+                    </div>
+                </form>
+            </p>
+            
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">Users Table</h4>
+                        </div>
+                        <div class="content table-responsive table-full-width">
+                            <table class="table table-striped">
+                                <thead>
+                                    <th>Firstname</th>
+                                	<th>Lastname</th>
+                                	<th>Profile Picture</th>
+                                	<th>Job</th>
+                                	<th>Company</th>
+                                </thead>
+                                <tbody>
+                                    <% user.forEach(function(user){ %>
+                                        <% if (!(currentUser.id == user.id)){ %>
+                                            <% for(var j=0; j<friendships.length; j++){%>
+                                                <% if(friendships[j].friend.username === user.username) { %>
+                                                    <% if(friendships[j].status === "accepted"){ %>
+                                                        <tr>
+                                                    	<td><h4><a href="/users/<%= friendships[j].friend._id %>/profile"><%= friendships[j].friend.firstname %></h4></td>
+                                                    	<td><h4><%= friendships[j].friend.firstname %></h4></td>
+                                                    	<td>
+                                                    	    <% if (!(friendships[j].friend.userAvatar)){ %>
+                                                                <img src="/uploads/2018-09-16T13:22:41.307ZuserAvatar" class="image-responsive">
+                                                            <% } else { %>
+                                                                <img src="/uploads/<%= friendships[j].friend.userAvatar %>">
+                                                            <% } %>
+                                                    	</td>
+                                                    	<td>
+                                                    	    <% if (!(friendships[j].friend.job)){ %>
+                                                    	        <h5>Unemployed</h5>
+                                                    	    <% } else { %>
+                                                    	        <h5><%= friendships[j].friend.job %></h5>
+                                                    	    <% } %>
+                                                    	</td>
+                                                    	<td>
+                                                    	    <% if (!(friendships[j].friend.company)){ %>
+                                                    	        <h5>No current company</h5>
+                                                    	    <% } else { %>
+                                                    	        <h5><%= friendships[j].friend.company %></h5>
+                                                    	    <% } %>
+                                                    	</td>
+                                                        </tr>
+                                                    <% } %>
+                                                <% } %>
+                                            <% } %>
+                                        <% } %>
+                                    <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<% include ../partials/footer %>

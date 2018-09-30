@@ -1,2 +1,8 @@
-EFTIAXA TA ARXIKA ROUTES
-PREPEI NA FTIAXW TO WALL KAI NA TO FRIEND REQUEST SYSTEM
+Να φτιάξουμε τον admin(export data on XML file)
+Public private variables on each user
+Likes dislikes
+Messenger
+Advertisements
+Upload photo,music and video
+Notifications
+Και να εμφανιζονται στην αρχικη σελιδα posts απο.χρηστες που δεν ειναι φιλοι αλλα εχει κανει like καποιος φιλος του

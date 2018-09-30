@@ -1,47 +1,4 @@
-<!DOCTYPE html>
-<head>
-	<meta charset="utf-8" />
-
-	<title>LinkedOut</title></title>
-	
-        <link rel="stylesheet" href="/stylesheets/main.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <meta name="viewport" content="width=device-width" />
-
-
-    <!-- Bootstrap core CSS     -->
-    <link href="stylesheets/bootstrap.min.css" rel="stylesheet" />
-
-    <!-- Animation library for notifications   -->
-    <link href="stylesheets/animate.min.css" rel="stylesheet"/>
-
-    <!--  Paper Dashboard core CSS    -->
-    <link href="stylesheets/paper-dashboard.css" rel="stylesheet"/>
-
-    <!--  Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
-
-</head>
-<body>
-    
-     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">LinkedOut</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-          <div class="collapse navbar-collapse container" id="navbarNav">
-            <span class="navbar-text">
-                <a class="nav-link" hrecmf="/logout">Logout</a>
-            </span>
-          </div>
-        </nav>
-    
-    
-    
+<% include ./partials/header %>
     
     <div class="content">
         <div class="container-fluid">
@@ -56,22 +13,34 @@
                                 <thead>
                                     <th>Firstname</th>
                                 	<th>Lastname</th>
-                                	<th>Password</th>
-                                	<th>Username</th>
+                                	<th>Work</th>
+                                	<th>Job</th>
+                                	<th>Company</th>
+                                	<th>Education</th>
+                                	<th>Skills</th>
                                 	<th>Phone Number</th>
                                 </thead>
                                 <tbody>
                                     <% user.forEach(function(user){ %>
-                                        <tr>
-                                    	<td><%= user.firstname %></td>
-                                    	<td><%= user.lastname %></td>
-                                    	<td><%= user.password %></td>
-                                    	<td><%= user.tel %></td>
-                                        </tr>
+                                        <% if(!(user.isAdmin)) { %>
+                                            <tr>
+                                            <td><h4><a href="/users/<%= user._id %>/profile"><%= user.firstname %></h4></td>
+                                        	<td><h4><%= user.lastname %></h4></td>
+                                        	<td><h4><%= user.work %></h4></td>
+                                        	<td><h4><%= user.job %></h4></td>
+                                        	<td><h4><%= user.company %></h4></td>
+                                        	<td><h4><%= user.education %></h4></td>
+                                        	<td><h4><%= user.skills %></h4></td>
+                                        	<td><h4><%= user.tel %></h4></td>
+                                            </tr>
+                                        <% } %>
                                     <% }); %>
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                    <div class="text-center">
+                        <a class="btn btn-primary btn-lg" href="/admin/users">Get xml</a>
                     </div>
                 </div>
             </div>

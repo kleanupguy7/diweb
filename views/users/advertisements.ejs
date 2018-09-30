@@ -1,0 +1,52 @@
+<% include ../partials/header %>
+<div class="container" >
+    <div class="col-md-1 offset-md-5" style="margin-bottom: 30px;">
+        <form action="/users/newAd" method="GET">
+            <button class="btn btn-primary float-middle" type="submit" >Post a new Advertisement</button>
+        </form>
+    </div>
+    
+    <% adverts.forEach(function(ad){ %>
+        
+        <% if((user.skills.some(skill=> ad.skills.indexOf(skill) >= 0)) || ad.author.username == currentUser.username){ %>
+            <div class="col-md-6 offset-md-3">
+                <div class="well">
+                    <% if (!(ad.author.id.userAvatar)){ %>
+                            <div class="pull-left image  post-heading">
+                                <img src="/uploads/2018-09-16T13:22:41.307ZuserAvatar" class="img-circle avatar">
+                            </div>
+                        <% } else { %>
+                            <div class="pull-left image  post-heading">
+                                <img src="/uploads/<%= ad.author.id.userAvatar %>" class="img-circle avatar">
+                            </div>
+                    <% } %>
+                    <div class="caption-full text-center">
+                        <h4><strong><%=ad.title%></strong></h4>
+                        <h5><%=ad.skills%></h5>
+                        <h5><%=ad.company%></h5>
+                        <p>
+                            <em>Submitted By <%= ad.author.username %></em>
+                        </p>
+                        
+                        <% if(!user._id.equals(currentUser._id)){ %>
+                            <% if((currentUser.discussions.indexOf(user._id)) >= 0 ) { %>
+                                <form action ="/users/discussions/<%= user._id%>/message" method="GET">
+                                    <div class="form-group">
+                                        <button class="btn btn-lg btn-primary"><i class="fas fa-comments">Message</i></button>
+                                    </div>
+                                </form>
+                            <% } else { %>
+                                <form action ="/users/discussions/<%= user._id%>/message" method="POST">
+                                    <div class="form-group">
+                                        <button class="btn btn-lg btn-primary"><i class="fas fa-comments">Message</i></button>
+                                    </div>
+                                </form>
+                            <% } %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    <% }); %>
+</div>
+<% include ../partials/footer %>

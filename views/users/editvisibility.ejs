@@ -1,0 +1,24 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="well">
+        <h1 style="text-align: center">Edit the visibility of your settings.</h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/users/<%=currentUser._id%>/editvisibility" method="POST">
+               <input type="checkbox" name="firstname" value="firstname" checked="checked" value="true"> Firstname<br>
+               <input type="checkbox" name="lastname" value="lastname" checked="checked" value="true"> Lastname <br> 
+               <input type="checkbox" name="tel" value="tel" checked="checked" value="true"> Phone Number <br> 
+               <input type="checkbox" name="company" value="company" checked="checked" value="true"> Company <br> 
+               <input type="checkbox" name="job" value="job" checked="checked" value="true"> Job <br>
+               <input type="checkbox" name="skills" value="skills" checked="checked" value="true"> Skills <br> 
+               <input type="checkbox" name="education" value="education" checked="checked" value="true"> Education <br> 
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</div>
+
+
+<% include ../partials/footer %>

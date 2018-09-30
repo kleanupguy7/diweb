@@ -1,0 +1,51 @@
+<% include ../partials/header %>
+
+<div class="container">
+    
+    <div class="messaging">
+                
+        
+        <div class="inbox_msg">
+            <div class="inbox_people">
+                <div class="inbox_chat">
+                   <% if(currentUser.discussions.length <= 0){ %>
+                        <h3>No conversations started :(</h3>
+                   <% }else{ %>
+                        <div class="chat_people">
+                            <% convos.forEach(function(chatee){ %>
+                                <% if (!(chatee.userAvatar)){ %>
+                                    <div class="pull-left image post-heading">
+                                        <img src="/uploads/2018-09-16T13:22:41.307ZuserAvatar" class="img-circle avatar">
+                                    </div>
+                                <% } else { %>
+                                    <div class="pull-left image post-heading">
+                                        <img src="/uploads/<%= chatee.userAvatar %>" class="img-circle avatar">
+                                    </div>
+                                <% } %>
+                                   <a class="nav-link" href="/users/discussions/<%=chatee._id%>/chat"><h4><%= chatee.firstname %></h4></a>
+                                <hr>
+                            <% }) %>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+
+
+
+        
+            <div class="mesgs">
+                <div class="msg_history">
+                    <div class="text-center">
+                        <h3>Select a User to chat with!</h3>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        
+        
+    </div>
+</div>
+        
+
+<% include ../partials/footer %>

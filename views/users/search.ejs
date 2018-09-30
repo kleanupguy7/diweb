@@ -1,0 +1,76 @@
+<% include ../partials/header %>
+
+<div class="content">
+        <div class="container-fluid">
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">Users Table</h4>
+                        </div>
+                        <div class="content table-responsive table-full-width">
+                            <table class="table table-striped">
+                                <thead>
+                                    <th>Firstname</th>
+                                	<th>Lastname</th>
+                                	<th>Profile Picture</th>
+                                	<th>Job</th>
+                                	<th>Company</th>
+                                	<th>Phone Number</th>
+                                </thead>
+                                <tbody>
+                                    <% users.forEach(function(user){ %>
+                                        <% if(!(user.isAdmin) && !(user.id == currentUser.id)) { %>
+                                            <tr>
+                                                <% if(friendsList.length != 0) { %>
+                                                    <% for(var j=0; j<friendsList.length; j++){%>
+                                                        <% if(friendsList[j] == user.id) { %>
+                                                                <td><h4><a href="/users/<%= user._id %>/profile"><%= user.firstname %></h4></td>
+                                                        <% } else {%>
+                                                                <td><h4><%= user.firstname %></h4></td>
+                                                        <% } %>
+                                                    <% } %>
+                                                <% } else {%>
+                                                    <td><h4><%= user.firstname %></h4></td>
+                                                <% } %>
+                                            
+                                        	<td><h4><%= user.lastname %></h4></td>
+                                        	<td>
+                                                <% if (!(user.userAvatar)){ %>
+                                                    <img src="/uploads/2018-09-16T13:22:41.307ZuserAvatar" class="image-responsive">
+                                                <% } else { %>
+                                                    <img src="/uploads/<%= user.userAvatar %>">
+                                                <% } %>
+                                        	</td>
+                                        	<td>
+                                        	    <% if (!(user.job)){ %>
+                                        	        <h5>Unemployed</h5>
+                                        	    <% } else { %>
+                                        	        <h5><%= user.job %></h5>
+                                        	    <% } %>
+                                        	</td>
+                                        	<td>
+                                        	    <% if (!(user.company)){ %>
+                                        	        <h5>No current company</h5>
+                                        	    <% } else { %>
+                                        	        <h5><%= user.company %></h5>
+                                        	    <% } %>
+                                        	</td>
+                                        	<td><h4><%= user.tel %></h4></td>
+                                            </tr>
+                                        <% } %>
+                                    <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <strong><a href="/users/network">Go Back</a></strong>
+        </div>
+    </div>
+    
+
+
+<% include ../partials/footer %>

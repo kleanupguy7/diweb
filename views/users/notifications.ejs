@@ -1,20 +1,51 @@
 <% include ../partials/header %>
 
-
-    <div class="container">
         <div class="col-lg-12">
             <div class="content">
-                <div class="col-lg-4">
-                    <% friendships.forEach(function(friendships){ %>
-                        <% if (friendships.status === "pending" ){%>
+                <% friendships.forEach(function(friendships){ %>
+                    <% if (friendships.status === "pending"){%>
+                        <div class="col-lg-2">
                             <div class="thumbnail">
-                                <h4> <%=friendships.friend.username %></h4>
+                                <% if (!(friendships.friend.userAvatar)){ %>
+                                    <img src="/uploads/2018-09-16T13:22:41.307ZuserAvatar" class="image-responsive">
+                                <% } else { %>
+                                    <img src="/uploads/<%= friendships.friend.userAvatar %>">
+                                <% } %>
+                                <h4><a href="/users/<%= friendships.friend._id %>/profile"><%= friendships.friend.username %></a></h4>
+                                <a class="btn btn-info btn-fill btn-wd text-white" href="/users/notifications/add/<%= friendships.friend._id %>/">Accept Friend</a>
+                                <a class="btn btn-danger btn-fill btn-wd text-white" href="/users/notifications/remove/<%= friendships.friend._id %>/">Remove Friend</a>
                             </div>
-                        <% } %>
-                    <% }); %>
-                </div>
+                        </div>
+                    <% } %>
+                <% }); %>
+                
+                
+                <% posts.forEach(function(post){ %>
+                    <% if (post.likes !== 0){%>
+                        <% likers.forEach(function(liker){ %>
+                            <div class="col-lg-8">
+                                <div class="alert alert-info alert-with-icon alert-dismissible fade show" data-notify="container">
+                                  <span data-notify="icon"><i class="far fa-bell"></i></span>
+                                  <span data-notify="message"><strong><%=liker %></strong> liked your<strong><a href="/wall/post/<%= post.id %>"> POST </a></strong></span>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } %>
+                    
+                    <% if (post.comments.length !== 0) { %>
+                        <% post.comments.forEach(function(comment) { %>
+                            <div class="col-lg-8">
+                                <div class="alert alert-success alert-with-icon alert-dismissible fade show" data-notify="container">
+                                    <span data-notify="icon"><i class="far fa-bell"></i></span>
+                                    <span data-notify="message">New comments on<a href="/wall/post/<%= post.id %>"> POST!!! </a></span>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } %>
+                <% }); %>
+                
+                
+                
             </div>
         </div>
-    </div>
-
 <% include ../partials/footer %>

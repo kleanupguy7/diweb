@@ -4,13 +4,16 @@ var passport = require("passport");
 var multer = require("multer");
 var User = require("../models/user");
 var middleware = require("../middleware/ware");
+var builder = require('xmlbuilder');
+var fs     = require('fs');
+var dirPath =__dirname + "/../xmlfiles/UserData.xml";
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb){
         cb(null, './uploads/');
     },
     filename: function(req, file, cb){
-        cb(null, file.fieldname);
+        cb(null,new Date().toISOString() + file.fieldname);
     }
 });
 
@@ -48,14 +51,14 @@ router.get("/register", function(req, res){
 
 //create user
 router.post("/register",upload.single("userAvatar"), function(req, res) {
-    console.log(req.file);
-    var newUser = new User({firstname: req.body.firstname, lastname: req.body.lastname, username: req.body.username, tel: req.body.tel, userAvatar: req.file.filename});
-    // newUser.photo.data = fs.readFileSync(req.files.userPhoto.path)
-    if(req.body.username == "admin" && req.body.password == "admin")
-        newUser.isAdmin = true;
+    var newUser;
+    if(req.file){
+        newUser = new User({firstname: req.body.firstname, lastname: req.body.lastname, username: req.body.username, tel: req.body.tel, userAvatar: req.file.filename});
+    } else {
+        newUser = new User({firstname: req.body.firstname, lastname: req.body.lastname, username: req.body.username, tel: req.body.tel });
+    }
     User.register(newUser, req.body.password, function(err, user){
-       if(err){
-           console.log(err);
+       if((err) || (req.body.username=="admin")){
            req.flash("error", err.message);
            return res.render("register", {error: err.message});
        }
@@ -65,26 +68,6 @@ router.post("/register",upload.single("userAvatar"), function(req, res) {
       });
    });
 });
-
-
-//TO BE CHANGED!!!
-router.get("/index", function(req, res) {
-   res.render("index", {page: "index"}); 
-});
-router.get("/advertisements", function(req, res) {
-   res.render("advertisements", {page: "advertisements"}); 
-});
-router.get("/discussions", function(req, res) {
-   res.render("discussions", {page: "discussions"}); 
-});
-router.get("/network", function(req, res) {
-   res.render("network", {page: "network"}); 
-});
-
-
-
-
-
 
 
 //LOGIN
@@ -97,9 +80,8 @@ router.get("/login", function(req, res) {
 router.post("/login", passport.authenticate("local",
             {
                 failureRedirect: "/login",
-                failureFlash:true
+                failureFlash:true,
             }),function(req,res){
-                
                 User.findOne({username: req.body.username}, function(err, user){
                     if(user.isAdmin == true)
                         res.redirect("/admin");
@@ -109,10 +91,7 @@ router.post("/login", passport.authenticate("local",
 });
 
 
-
-//TODO::: MIDDLEWARE για /admin.αν ενας απλος χρηστης ειναι loggedin μπορει να μπει στη /admin!!
-
-router.get("/admin", function(req, res) {
+router.get("/admin",middleware.isAdmin,function(req, res) {
     User.find({},function(err, allUsers){
         if(err){
             console.log(err);
@@ -121,6 +100,34 @@ router.get("/admin", function(req, res) {
         }
     });
 });
+
+router.get("/admin/users",middleware.isAdmin,function(req, res) {
+    User.find({},function(err, allUsers){
+        if(err){
+            console.log(err);
+        }else{
+            var xml = builder.create('UserData');
+            allUsers.forEach(function(user,index){
+                xml.ele("User")
+                    .ele("firstname", user.firstname).up()
+                    .ele("lastname", user.lastname).up()
+                    .ele("Work", user.work).up()
+                    .ele("Job", user.job).up()
+                    .ele("Skills", user.skills.toString()).up()
+                    .ele("Company", user.company).up()
+                    .ele("Education", user.education).up()
+                    .ele("Phone", user.tel).end({ pretty: true});        
+            });
+            fs.writeFile(dirPath, xml, function(err) {
+                if(err) {
+                    return console.log(err);
+                }
+                res.redirect("/admin");
+            });
+        }
+    });
+});
+
 
 //logout
 router.get("/logout",function(req,res){

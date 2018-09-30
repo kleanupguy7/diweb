@@ -1,0 +1,30 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="well">
+        <h1 style="text-align: center">Submit your Ad information.</h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/users/newAd" method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="title" placeholder="Job Title">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="skills" placeholder="Add required skills seperated by commas">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="company" placeholder="Add Workplace">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="textarea" name="desc" placeholder="Add in a short description">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                </div>
+            </form>
+            <a href="/users/advertisements">Go Back</a>
+        </div>
+    </div>
+    
+</div>
+
+
+<% include ../partials/footer %>

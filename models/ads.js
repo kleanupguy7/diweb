@@ -2,14 +2,20 @@ var mongoose = require("mongoose");
 var passportLocalMongoose = require("passport-local-mongoose");
 
 var AdSchema = new mongoose.Schema({
-    text: String,
-    id: { type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
+    title:String,
+    desc: String,
+    skills:[{type:String}],
+    author:{
+        id:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"User"
+        },
+        username:String
     },
-    username:String
+    company:String
 });
 
 
 AdSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model("Post", AdSchema);
+module.exports = mongoose.model('Ad', AdSchema);
