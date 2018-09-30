@@ -7,16 +7,19 @@ var express = require("express"),
     flash = require("connect-flash"),
     seedDB      = require("./seed"),
     methodOverride = require("method-override"),
-    bodyParser = require("body-parser");
-    //Posts = require("./models/posts"),
-   // Ads = require("./models/ads");
+    bodyParser = require("body-parser"),
+    https = require("https"),
+    fs = require("fs"),
+    url = require("url");
+
     
 var indexRoute = require("./routes/index");
 var wallRoute = require("./routes/wall");
 var userRoute = require("./routes/users");
     
-mongoose.connect("mongodb://localhost/LinkedOut",{ useNewUrlParser: true });
-//mongodb://kleanupguy7:shape123@ds023373.mlab.com:23373/diproject
+// mongoose.connect("mongodb://localhost/LinkedOut",{ useNewUrlParser: true });
+mongoose.connect("mongodb://Stefanos:STF7833ftbl@ds215563.mlab.com:15563/linkedout",{ useNewUrlParser: true });
+// mongodb://Stefanos:STF7833ftbl@ds215563.mlab.com:15563/linkedout
 mongoose.set('useCreateIndex', true);
     
 mongoose.Promise = require('bluebird');
@@ -28,8 +31,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
 
-
-//seedDB();
+//seedDB(); //add admin
 
 
 app.use(require("express-session")({
@@ -56,6 +58,21 @@ app.use("/",indexRoute);
 app.use("/users",userRoute);
 app.use("/wall",wallRoute);
 
+// var options = {
+//     key: fs.readFileSync('csr.pem'),
+//     cert: fs.readFileSync('server.crt')
+// };
+
+// https.createServer(options, function(req, res) {
+
+//     console.log("This works!");
+
+//     res.writeHead(200);
+//     res.end("Hello world from Cloud9! Url:"+req.url);
+
+// }).listen(process.env.PORT,process.env.IP,function(){
+//     console.log("Server Started");
+// });
 
 app.listen(process.env.PORT,process.env.IP,function(){
     console.log("Server Started");
