@@ -16,8 +16,8 @@ var userRoute = require("./routes/users");
     
     
 var url = "mongodb://localhost/LinkedOut";
-// mongoose.connect(url,{ useNewUrlParser: true });
-mongoose.connect("mongodb://Stefanos:STF7833ftbl@ds215563.mlab.com:15563/linkedout",{ useNewUrlParser: true });
+mongoose.connect(url,{ useNewUrlParser: true });
+// mongoose.connect("mongodb://Stefanos:STF7833ftbl@ds215563.mlab.com:15563/linkedout",{ useNewUrlParser: true });
 
 mongoose.set('useCreateIndex', true);
     
